@@ -10,12 +10,15 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/koa-router": "^7.4.4",
     "@types/node": "^18.11.17",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4"
   },
   "dependencies": {
     "knex": "^2.3.0",
-    "knex-stringcase": "^1.4.6"
+    "knex-stringcase": "^1.4.6",
+    "koa": "^2.14.1",
+    "koa-router": "^12.0.0"
   }
 }
