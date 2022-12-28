@@ -1,6 +1,7 @@
 import Router from "koa-router";
 import db from "../db";
 import { nestObject } from "./utils";
+import { AuthData } from "auth";
 const router = new Router()
 
 const makeQuery = () => db('userResult').select(
@@ -14,7 +15,8 @@ const makeQuery = () => db('userResult').select(
   
 router
     .get('/', async (ctx,next) => {
-        let query = makeQuery()
+        const authData = ctx.state.authData as AuthData
+        let query = makeQuery().where({'userResult.userCode': authData.username})
         if (ctx.request.query['announcementId']) {
             const announcementId = Number(ctx.request.query['announcementId'])
             query = query.where({announcementId})
