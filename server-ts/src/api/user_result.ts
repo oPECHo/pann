@@ -1,13 +1,23 @@
 import Router from "koa-router";
-
+import db from "../db";
 const router = new Router()
 
 router
-    .get('/',async(ctx,next) => {
-        ctx.body = [
-            { id: 1, announcementId: 1, result: '24.5', remark: 'โดนหักคะแนนจากการเข้าสอบสาย', updateDateTime: '2022-09-07 09:12:31', userCode: '6510110150'},
-            { id: 2, announcementId: 1, result: '30.1', updateDateTime: '2022-09-07 11:12:00', userCode: '6510110140'},
-            { id: 3, announcementId: 2, result: 'ได้รับทุน', remark: '', resultType: 1,  updateDateTime: '2022-09-08 10:12:30', userCode: '6510110140'}
-        ]
+    .get('/', async (ctx,next) => {
+        let query = db('userResult').select('*')
+        if (ctx.request.query['announcementId']) {
+            const announcementId = Number(ctx.request.query['announcementId'])
+            query = query.where({announcementId})
+        }
+        if (ctx.request.query['isPinned']) {
+            const isPinned = Boolean(ctx.request.query['isPinned'])
+            query = query.where({ isPinned })
+        }
+        if (ctx.request.query['keyword']) {
+            const keyword = String(ctx.request.query['keyword'])
+            query = query.where((it) => {it.where('announcement.topic','like', `%${keyword}%`).orWhere('announcement.description','like',`%${keyword}%`)})
+        }
+        ctx.body = await query.orderBy('id','desc')
     })
+
 export default router
