@@ -1,16 +1,6 @@
-export default interface Announcement{
-    id: number
-    topic: string
-    description: string
-    remarkIfPositive: string
-    remarkIfNegative: string 
-    pubDateTime: Date
-    userCode: string
-  }
-export interface IRepository<T> { 
-    getAll(filter: any|undefined): Promise<T[] | null>; 
-}
- 
+import Announcement from "../models/anouncement";
+import { IRepository } from "./IRepository";
+
 export class AnnouncementRepository implements IRepository<Announcement> {
     async getAll(): Promise<Announcement[] | null> {
         return [
