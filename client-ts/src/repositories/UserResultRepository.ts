@@ -1,18 +1,16 @@
 import { IRepository } from "./IRepository"
+import UserResult from "../models/UserResult"
+import config,{ ax } from "../config"
 
-export default interface UserResult{
-    id: number
-    announcementId: number
-    result: string
-    remark: string
-    updateDateTime: Date
-    userCode: string
-  }
-
+export interface UserResultFilter {
+    keyword?: string
+    isPinned?: boolean
+}
 export class UserResultRepository implements IRepository<UserResult> {
-    async getAll(): Promise<UserResult[] | null> {
-        return [
-            { id: 1,announcementId: 1, result: '24.5', remark: 'โดนหักคะแนนจากการเข้าสอบสาย', updateDateTime: new Date('2022-09-07 09:12:31'), userCode: '6510110150'}
-        ]
+    urlPrefix = config.remoteRepositoryUrlPrefix
+    async getAll(filter:UserResultFilter): Promise<UserResult[] | null> {
+        const params = {...filter}
+        const resp = await ax.get<UserResult[]>(`${this.urlPrefix}/userResult`, { params })
+        return resp.data
     }
 }
