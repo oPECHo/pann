@@ -1,4 +1,4 @@
-import Announcement from "../models/anouncement";
+import Announcement from "../models/Announcement";
 import { IRepository } from "./IRepository";
 
 export class AnnouncementRepository implements IRepository<Announcement> {
