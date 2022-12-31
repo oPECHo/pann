@@ -13,4 +13,19 @@ export class UserResultRepository implements IRepository<UserResult> {
         const resp = await ax.get<UserResult[]>(`${this.urlPrefix}/userResult`, { params })
         return resp.data
     }
+    async get(id: string|number): Promise<UserResult | null> {
+       const resp = await ax.get<UserResult>(`${this.urlPrefix}/UserResult/${id}}`)
+       return resp.data 
+    }
+    async create(entity: Partial<UserResult>): Promise<UserResult | null> {
+        const resp = await ax.post<UserResult>(`${this.urlPrefix}/userResult`, entity)   
+        return resp.data
+      }   
+    async update(entity: Partial<UserResult>): Promise<UserResult | null> {
+        const resp = await ax.put<UserResult>(`${this.urlPrefix}/userResult/${entity.id}`, entity)    
+        return resp.data
+      }   
+    async delete(id: string|number): Promise<void> {
+        await ax.delete<void>(`${this.urlPrefix}/userResult/${id}`)
+      }    
 }
