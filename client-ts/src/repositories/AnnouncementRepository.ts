@@ -1,6 +1,7 @@
 import Announcement from "../models/Announcement";
 import { IRepository } from "./IRepository";
 import config, { ax } from "../config";
+import UserResult from "../models/UserResult";
 
 export interface AnnouncementFilter {
     keyword?: string
@@ -29,5 +30,13 @@ export class AnnouncementRepository implements IRepository<Announcement> {
     async delete(id: string|number): Promise<void> {
       await ax.delete<void>(`${this.urlPrefix}/announcement/${id}`)
     }
-  }
+    async getUserResult(id: string|number): Promise<UserResult[] | null> {
+      const resp = await ax.get<UserResult[]>(`${this.urlPrefix}/announcement/${id}/results`)
+      return resp.data
+    }
+    async upsertUserResult(id: string|number, entity: Partial<UserResult>[]): Promise<UserResult[] | null> {
+      const resp = await ax.post<UserResult[]>(`${this.urlPrefix}/announcement/${id}/results`, entity)
+      return resp.data
+    }
+}
 
