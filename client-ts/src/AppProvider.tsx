@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState } from 'react'
 import { useAuth } from 'react-oidc-context';
 
 function createCtx<A extends {} | null>() {
