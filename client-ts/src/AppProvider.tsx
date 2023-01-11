@@ -28,7 +28,7 @@ export type UserInfo = {
   ready: boolean
   username?: string
   displayName?: string
-  groups?: string[]
+  staff?: boolean
 }
 
 const initialUserInfo = {
@@ -48,7 +48,9 @@ function AppProvider({children}: AppProviderProps){
   }
 
   function isStaff(){
-    return _userInfo.groups ? _userInfo.groups.indexOf('staff') >= 0 : false
+    const groups:any = auth.user?.profile.groups
+    _userInfo.staff = groups.indexOf('staff') >= 0 ? true:false
+    return _userInfo.staff
   }
   
   function signOut(){
