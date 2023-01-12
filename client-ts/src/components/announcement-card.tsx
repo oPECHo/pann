@@ -12,12 +12,13 @@ import UserResult from "../models/UserResult";
 interface Prop {
   announcement: Announcement
   callbackFetchFn: () => void
+  onUpdateAnnouncement : (announcement: Announcement) => void;
 }
 
 const USER_RESULT_BINDABLE = ['userCode', 'result', 'resultType', 'remark']
 
 function AnnouncementCard(props: Prop) {
-  const [announcement, setAnnouncement] = useState<Announcement>(props.announcement);
+  const announcement = props.announcement
   const [userResultList, setUserResultList] = useState<Partial<UserResult>[]>([]);
   const [popup, setPopup] = useState(false);
   const [tabIndex, setTabIndex] = useState(0);
@@ -29,8 +30,8 @@ function AnnouncementCard(props: Prop) {
     'remark'
   ];
 
-  const fetchUserResultList = async () => {
-    const result = await Repo.announcements.getUserResult(announcement.id)
+  const fetchUserResultList = async (announcementId: number) => {
+    const result = await Repo.announcements.getUserResult(announcementId)
     if (result) {
       setUserResultList([])
       setUserResultList(result)
@@ -41,7 +42,7 @@ function AnnouncementCard(props: Prop) {
   const onUpdate = async (ann: Partial<Announcement>) => {
     const result = await Repo.announcements.update(ann)
     if (result) {
-      setAnnouncement(result)
+      props.onUpdateAnnouncement(result)
     }
     setPopup(false)
   }
@@ -103,7 +104,7 @@ function AnnouncementCard(props: Prop) {
 
   const handleSubmitImport = async () => {
     await Repo.announcements.upsertUserResult(announcement.id, userResultList)
-    fetchUserResultList()
+    fetchUserResultList(announcement.id)
   }
 
   const getConditionalBgColor = (userResult: Partial<UserResult>) => {
@@ -116,8 +117,8 @@ function AnnouncementCard(props: Prop) {
   }
 
   useEffect(() => {
-    fetchUserResultList()
-  }, [])
+    fetchUserResultList(announcement.id)
+  }, [announcement.id])
 
   return (
     <Box>
