@@ -11,6 +11,9 @@ function UserResultList() {
   const [selectFilter, setSelectFilter] = useState('');
   const [searchFilter, setSearchFilter] = useState('');
 
+  const onUpdateUserResult = (userResult: UserResult) => {
+    setUserResultList(prevUserResultList => prevUserResultList.map(item => item.id === userResult.id ? userResult : item))}
+
   const fetchUserResultList = async () => {
     let params: { keyword?: string, isPinned?: boolean } = {}
     if (searchFilter) {
@@ -60,7 +63,7 @@ function UserResultList() {
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 8, md: 12, lg: 12, xl: 10 }}>
           {userResultList.map((userResult, index) =>
             <Grid item xs={2} sm={4} md={4} lg={3} xl={2} key={index}>
-              <UserResultCard userResult={userResult}></UserResultCard>
+              <UserResultCard userResult={userResult} onUpdateUserResult={onUpdateUserResult}></UserResultCard>
             </Grid>
           )}
         </Grid>

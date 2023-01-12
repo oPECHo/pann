@@ -6,7 +6,8 @@ import UserResult, { ResultType } from "../models/UserResult";
 import Repo from '../repositories'
 
 interface Prop {
-  userResult: UserResult
+  userResult: UserResult;
+  onUpdateUserResult: (userResult: UserResult) => void;
 }
 
 function UserResultCard(props: Prop) {
@@ -17,7 +18,7 @@ function UserResultCard(props: Prop) {
     if(!userResult.viewDateTime){
       const result = await Repo.UserResults.view(userResult.id)
       if(result) {
-        setUserResult(result)
+        props.onUpdateUserResult(result)
         setPopup(true)
       }
     }else{
@@ -28,14 +29,14 @@ function UserResultCard(props: Prop) {
   const handleAcknowledge = async () => {
     const result = await Repo.UserResults.acknowledge(userResult.id)
     if(result) {
-      setUserResult(result)
+      props.onUpdateUserResult(result)
     }
   };
 
   const handleToggleIsPinned = async () => {
     const result = await Repo.UserResults.toggleIsPinned(userResult.id)
     if(result) {
-      setUserResult(result)
+      props.onUpdateUserResult(result)
     }
   };
 
