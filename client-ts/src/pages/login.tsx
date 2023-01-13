@@ -5,11 +5,9 @@ import { useAuth } from "react-oidc-context";
 import { useAppCtx } from "../AppProvider";
 import { Navigate ,useLocation } from 'react-router-dom'
 import { useEffect } from "react";
-import Myimage from "../image/bg.jpg"
-
 
 function Login() {
-
+    const Myimage = require("../image/bg.jpg")
     const { userInfo, action } = useAppCtx()
     const auth = useAuth()
     const location = useLocation()
