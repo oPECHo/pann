@@ -11,7 +11,7 @@ interface Prop {
 }
 
 function UserResultCard(props: Prop) {
-  const [userResult, setUserResult] = useState<UserResult>(props.userResult);
+  const userResult = props.userResult
   const [popup, setPopup] = useState(false);
 
   const onOpenPopup = async () => {
