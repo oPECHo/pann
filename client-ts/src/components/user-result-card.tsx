@@ -47,10 +47,16 @@ function UserResultCard(props: Prop) {
       return userResult.announcement.remarkIfNegative
     }
   }
-
+  
   return (
     <Box>
-      <Card sx={{ maxWidth: 500, height: 250 }}>
+      <Card sx={{ maxWidth: 500, height: 250,
+        transition: 'all 0.2s ease-in-out',
+        '&:hover': {
+            backgroundColor: '#F4EAFF',
+            transform: 'scale(1.05)'
+        } 
+      }}>
         <CardHeader
           sx={{ height: '30%' }}
           title={userResult.announcement?.topic}
