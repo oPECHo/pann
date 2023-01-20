@@ -48,9 +48,10 @@ router
     }
     ctx.body = await findById(id).first()
   })
-  .del('/:id', async (ctx, next) => {
-    const id = parseInt(ctx.params.id)
-    const rowUpdated = await findById(id).del()
+  .del('/:id',prepareAnnoucementById, async (ctx, next) => {
+    const announcement = ctx.state.announcement
+    await db('userResult').del().where({'announcementId': announcement.id})
+    const rowUpdated = await findById(announcement.id).del()
     ctx.body = {statusCode: rowUpdated > 0 ? 1 : 0}
   })
   .get('/:id/results', prepareAnnoucementById, async (ctx, next) => {
