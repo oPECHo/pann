@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Grid, MenuItem, Select, SelectChangeEvent, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import PannAppBar from '../components/pann-user-app-bar';
+import PannAppBar from '../components/pann-app-bar';
 import UserResultCard from '../components/user-result-card';
 import UserResult from '../models/UserResult';
 import Repo from '../repositories'
