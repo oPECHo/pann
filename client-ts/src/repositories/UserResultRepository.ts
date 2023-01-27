@@ -36,8 +36,8 @@ export class UserResultRepository implements IRepository<UserResult> {
         const resp = await ax.get<UserResult>(`${this.urlPrefix}/userResult/${id}/acknowledge`)   
         return resp.data
       }    
-    async toggleIsPinned(id: string|number): Promise<UserResult | null> {
-        const resp = await ax.get<UserResult>(`${this.urlPrefix}/userResult/${id}/pin/1`)    
+    async toggleIsPinned(id: string|number, action : number): Promise<UserResult | null> {
+        const resp = await ax.get<UserResult>(`${this.urlPrefix}/userResult/${id}/pin/${action}`)    
         return resp.data
     }    
 }
