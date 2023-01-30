@@ -30,7 +30,6 @@ function UserResultCard(props: Prop) {
     const result = await Repo.UserResults.acknowledge(userResult.id)
     if(result) {
       props.onUpdateUserResult(result)
-      window.location.replace('home')
     }
   };
 
@@ -39,14 +38,12 @@ function UserResultCard(props: Prop) {
       const result = await Repo.UserResults.toggleIsPinned(userResult.id,0)
       if(result) {
         props.onUpdateUserResult(result)
-        window.location.replace('home')
       }
       return
     }
     const result = await Repo.UserResults.toggleIsPinned(userResult.id,1)
     if(result) {
       props.onUpdateUserResult(result)
-      window.location.replace('home')
     }
   };
 
