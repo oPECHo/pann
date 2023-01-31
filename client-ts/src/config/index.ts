@@ -8,7 +8,8 @@ export const oidcConfig: AuthProviderProps = {
   authority: 'http://localhost:8888/realms/master',
   client_id: 'pann',
   scope: 'openid profile offline_access',
-  redirect_uri: 'http://localhost:3000',    
+  redirect_uri: 'http://localhost:3000',
+  post_logout_redirect_uri: 'http://localhost:3000',     
   monitorSession: true,
 };
 
